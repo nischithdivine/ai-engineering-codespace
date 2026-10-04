@@ -1,0 +1,27 @@
+import httpx
+import os
+
+url = "https://api.openai.com/v1/embeddings"
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+headers = {
+    "Authorization":f"Bearer {api_key}",
+    "Content-type": "application/json"
+}
+
+body = {
+    "model": "text-embedding-3-small",
+    "input": "India is my Country"
+}
+
+
+with httpx.Client(http2=True) as client:
+    response = client.post(url,headers = headers, json = body)
+
+print(response.status_code)
+print(response.json())
+
+print(response.http_version)
+
+print(response.extensions)

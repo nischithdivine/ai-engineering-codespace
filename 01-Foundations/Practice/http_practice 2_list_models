@@ -1,0 +1,26 @@
+import httpx
+import os
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+url = "https://api.openai.com/v1/models"
+
+headers ={
+    "Authorization":f"Bearer {api_key}",
+    "Content-type": "application/json"
+}
+
+# body = {
+#     "model" : 'gpt-4o-mini',
+#     "message" : [
+#         {"role":"user","content":"Explain transofrmers"}] 
+# }
+
+with httpx.Client(http2=True) as client:
+    response = client.get(url,headers=headers)
+
+
+print(response.status_code)
+print(response.json())
+
+print(response.extensions)
